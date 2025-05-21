@@ -1,14 +1,14 @@
 package com.cubecrema.service;
 
+import com.cubecrema.dto.ProductDTO;
 import com.cubecrema.model.Category;
-import com.cubecrema.model.Product;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    List<Product> findAllProducts();
-    Optional<Product> findProductById(Long id);
-    List<Product> findProductsByCategoryName(String categoryName);
+    List<ProductDTO> findAllProducts();
+    Optional<ProductDTO> findProductById(Long id);
+    List<ProductDTO> findProductsByCategoryName(String categoryName);
     List<Category> findAllCategories();
 }

@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CubecremaApplicationnn {
+public class CubecremaApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CubecremaApplicationnn.class, args);
+        SpringApplication.run(CubecremaApplication.class, args);
     }
 }
