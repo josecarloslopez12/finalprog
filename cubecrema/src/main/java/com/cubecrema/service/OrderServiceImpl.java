@@ -20,10 +20,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private PurchaseOrderRepository orderRepository;
-    
+
     @Autowired
     private ProductRepository productRepository;
-    
+
     @Autowired
     private OrderItemRepository orderItemRepository;
 
@@ -34,31 +34,36 @@ public class OrderServiceImpl implements OrderService {
         PurchaseOrder order = new PurchaseOrder();
         order.setTransactionId("TRX-" + UUID.randomUUID().toString().substring(0, 9).toUpperCase());
         order.setTotalAmount(orderDTO.getTotal());
-        order.setStatus("COMPLETED");
+        order.setStatus("COMPLETED"); // Assuming "COMPLETED" as per original logic, can be "PENDING" from schema.sql
+        order.setMinecraftUsername(orderDTO.getMinecraftUsername());
+        order.setEmail(orderDTO.getEmail());
         order.setCreatedAt(LocalDateTime.now());
-        order.setPaymentDate(LocalDateTime.now());
-        
-        // Guardar la orden
+        order.setPaymentDate(LocalDateTime.now()); // Assuming payment is immediate
+
+        // Guardar la orden primero para obtener su ID
         PurchaseOrder savedOrder = orderRepository.save(order);
-        
+
         // Crear los items de la orden
         List<OrderItem> orderItems = orderDTO.getItems().stream().map(itemDTO -> {
             OrderItem item = new OrderItem();
-            Product product = productRepository.findById(itemDTO.getProductId())
-                    .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
-            
-            item.setOrder(savedOrder);
+            // Use itemDTO.getId() to find the product
+            Product product = productRepository.findById(itemDTO.getId())
+                    .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + itemDTO.getId()));
+
+            item.setOrder(savedOrder); // Link item to the saved order
             item.setProduct(product);
             item.setQuantity(itemDTO.getQuantity());
-            item.setPrice(itemDTO.getPrice());
-            
+            item.setPrice(itemDTO.getPrice()); // This is the price per unit at the time of purchase
+
             return item;
         }).collect(Collectors.toList());
-        
-        // Guardar los items
+
+        // Guardar los items de la orden
         orderItemRepository.saveAll(orderItems);
-        savedOrder.setItems(orderItems);
         
-        return savedOrder;
+        // Asignar los items guardados a la orden (opcional si la relación es bien manejada por JPA y no se necesita inmediatamente)
+        // savedOrder.setItems(orderItems); // This might cause another save if items are not managed by cascade from order
+
+        return savedOrder; // Devuelve la orden con sus items (si la relación está configurada para cargarlos)
     }
 }
