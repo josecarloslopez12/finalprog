@@ -1,0 +1,70 @@
+-- Creación de la base de datos
+CREATE DATABASE IF NOT EXISTS cubecrema;
+USE cubecrema;
+
+-- Tabla para categorías de productos
+CREATE TABLE category (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(255)
+);
+
+-- Tabla para productos
+CREATE TABLE product (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(255),
+    price DECIMAL(10, 2) NOT NULL,
+    image_path VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES category(id)
+);
+
+-- Tabla para órdenes
+CREATE TABLE purchase_order (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    transaction_id VARCHAR(50) NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
+    minecraft_username VARCHAR(50),
+    email VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    payment_date TIMESTAMP NULL
+);
+
+-- Tabla para detalles de la orden (productos comprados)
+CREATE TABLE order_item (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES purchase_order(id),
+    FOREIGN KEY (product_id) REFERENCES product(id)
+);
+
+-- Inserciones de datos para categorías
+INSERT INTO category (id, name, description) VALUES
+(1, 'packs', 'Paquetes de equipamiento'),
+(2, 'ranks', 'Rangos de usuario'),
+(3, 'xp', 'Niveles de experiencia');
+
+-- Inserciones de datos para productos - Packs
+INSERT INTO product (category_id, name, description, price, image_path) VALUES
+(1, 'Pack Crema', 'Set inicial: Todo diamante y encantado', 15.00, 'images/pack_diamond.png'),
+(1, 'Pack Netherite', 'Set completo de equipo de Netherite', 25.00, 'images/pack_netherite.png'),
+(1, 'Pack Crema Premium', 'Pack Netherite completamente encantado', 40.00, 'images/pack_premium.png');
+
+-- Inserciones de datos para productos - Rangos
+INSERT INTO product (category_id, name, description, price, image_path) VALUES
+(2, 'Rango Crema', 'Acceso a características básicas premium', 10.00, 'images/rank_normal.png'),
+(2, 'Rango Crema Gustosa', 'Acceso a características intermedias premium', 20.00, 'images/rank_gustoso.png'),
+(2, 'Rango Crema Supremo', 'Acceso total a características premium', 35.00, 'images/rank_supremo.png');
+
+-- Inserciones de datos para productos - Experiencia
+INSERT INTO product (category_id, name, description, price, image_path) VALUES
+(3, '50 Niveles de XP', '50 niveles de experiencia', 5.00, 'images/xp_small.png'),
+(3, '150 Niveles de XP', '150 niveles de experiencia', 12.00, 'images/xp_medium.png'),
+(3, '300 Niveles de XP', '300 niveles de experiencia', 20.00, 'images/xp_large.png');

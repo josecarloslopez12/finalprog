@@ -1,0 +1,605 @@
+/* Estilos generales - Inspirados en Minecraft con colores personalizados */
+:root {
+    --primary-color: #B78DE0;
+    --secondary-color: #78CAC5;
+    --dark-primary: #9669c0;
+    --dark-secondary: #5aaca7;
+    --light-primary: #d3b5f1;
+    --light-secondary: #a4e4e0;
+    --dark-bg: #2F3136;
+    --light-bg: #F0F0F0;
+    --minecraft-brown: #825432;
+    --minecraft-green: #5B9929;
+    --minecraft-gray: #9D9D97;
+    --text-light: #FFFFFF;
+    --text-dark: #333333;
+    }
+    /* Fuentes */
+    @font-face {
+    font-family: 'MinecraftTen';
+    src: url('https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js');
+    font-display: swap;
+    }
+    body {
+    font-family: 'MinecraftTen', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    }
+    /* Efecto de pixelado para bloques */
+    .minecraft-block {
+    position: relative;
+    padding: 30px 0;
+    border: 4px solid #000;
+    border-radius: 0;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    background-image: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    }
+    .minecraft-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAFElEQVQYV2NkYGD4z4AFMI4qABcBADaIBg8BGWRlAAAAAElFTkSuQmCC');
+    background-repeat: repeat;
+    opacity: 0.1;
+    pointer-events: none;
+    }
+    /* Botones estilo Minecraft */
+    .minecraft-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-family: 'MinecraftTen', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-light);
+    background-color: var(--primary-color);
+    border: 3px solid #000;
+    border-bottom-width: 5px;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3);
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    }
+    .minecraft-button::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.3);
+    }
+    .minecraft-button:hover {
+    transform: translateY(-2px);
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5);
+    }
+    .minecraft-button:active {
+    transform: translateY(2px);
+    border-bottom-width: 3px;
+    }
+    .minecraft-button.primary {
+    background-color: var(--primary-color);
+    }
+    .minecraft-button.secondary {
+    background-color: var(--secondary-color);
+    }
+    .minecraft-button.buy-button {
+    width: 100%;
+    border-radius: 0;
+    }
+    /* Estilos de la barra de navegación */
+    .header-block {
+    background-image: linear-gradient(to right, var(--dark-primary), var(--dark-secondary));
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    }
+    .navbar {
+    padding: 15px 0;
+    }
+    .navbar-brand.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-light);
+    position: relative;
+    padding-left: 40px;
+    }
+    .navbar-brand.logo::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23FFFFFF" d="M4 2h16v4h-4v4h-4v4H8v4H4z"/></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+    }
+    .nav-link {
+    color: var(--text-light) !important;
+    font-weight: 600;
+    margin: 0 5px;
+    padding: 8px 15px !important;
+    position: relative;
+    transition: all 0.3s ease;
+    }
+    .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--text-light);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+    transform: scaleX(1);
+    }
+    /* Estilos del banner principal */
+    .hero-block {
+    background-image: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color));
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    }
+    .hero-block::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wYFEiQn1vvYnQAAAHRJREFUeNrt1rEJACAMRUEVtxuA+w9i5wQWFkII4Z6F+Ec6d0pVn3ud3OwZMsQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBDy6QIaizXoNaXQygAAAABJRU5ErkJggg==');
+    background-size: 100px 100px;
+    opacity: 0.05;
+    pointer-events: none;
+    }
+    .minecraft-title {
+    font-family: 'MinecraftTen', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+    color: var(--text-light);
+    letter-spacing: 2px;
+    }
+    .minecraft-image-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    .minecraft-logo {
+    width: 250px;
+    height: 250px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23FFFFFF" d="M4 2h16v4h-4v4h-4v4H8v4H4z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+    }
+    /* Estilos de las tarjetas de producto */
+    .product-card {
+    background-color: var(--light-bg);
+    border: 4px solid #000;
+    border-radius: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 6px 0 #000;
+    }
+    .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 11px 0 #000;
+    }
+    .product-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 4px solid #000;
+    position: relative;
+    }
+    .product-img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAFElEQVQYV2NkYGD4z4AFMI4qABcBADaIBg8BGWRlAAAAAElFTkSuQmCC');
+    background-repeat: repeat;
+    opacity: 0.2;
+    pointer-events: none;
+    }
+    .pack-diamond {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%2380E0E0" d="M12 2l10 10-10 10L2 12z"/></svg>');
+    background-color: #80E0E0;
+    }
+    .pack-netherite {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23555555" d="M12 2l10 10-10 10L2 12z"/></svg>');
+    background-color: #555555;
+    }
+    .pack-premium {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23FFCC00" d="M12 2l10 10-10 10L2 12z"/></svg>');
+    background-color: #FFCC00;
+    }
+    .product-info {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    }
+    .product-info h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+    }
+    .product-info p {
+    color: var(--text-dark);
+    flex-grow: 1;
+    margin-bottom: 15px;
+    }
+    .price {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--dark-primary);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    }
+    .price .currency {
+    font-size: 16px;
+    margin-right: 2px;
+    }
+    /* Estilos para la sección de rangos */
+    .dark-block {
+    background-image: linear-gradient(to bottom, var(--dark-bg), #1a1b1e);
+    color: var(--text-light);
+    }
+    .rank-card {
+    background-color: var(--light-bg);
+    border: 4px solid #000;
+    border-radius: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 6px 0 #000;
+    }
+    .rank-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 11px 0 #000;
+    }
+    .rank-header {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 4px solid #000;
+    }
+    .rank-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text-light);
+    text-transform: uppercase;
+    }
+    .rank-normal {
+    background-color: var(--primary-color);
+    }
+    .rank-gustoso {
+    background-color: var(--secondary-color);
+    }
+    .rank-supremo {
+    background: linear-gradient(45deg, #FF9F43, #FF4E50);
+    }
+    .rank-body {
+    padding: 20px;
+    background-color: var(--light-bg);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    }
+    .rank-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    flex-grow: 1;
+    }
+    .rank-features li {
+    padding: 6px 0;
+    color: var(--text-dark);
+    border-bottom: 1px dashed #ddd;
+    }
+    .rank-features li i {
+    color: var(--minecraft-green);
+    margin-right: 8px;
+    }
+    /* Estilos para la sección de experiencia */
+    .xp-card {
+    background-color: var(--light-bg);
+    border: 4px solid #000;
+    border-radius: 0;
+    padding: 30px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 6px 0 #000;
+    }
+    .xp-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 11px 0 #000;
+    }
+    .xp-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    }
+    .xp-small {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%2378CAC5" d="M4 2h16v4h-4v4h-4v4H8v4H4z"/></svg>');
+    }
+    .xp-medium {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23B78DE0" d="M4 2h16v4h-4v4h-4v4H8v4H4z"/></svg>');
+    }
+    .xp-large {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23FFCC00" d="M4 2h16v4h-4v4h-4v4H8v4H4z"/></svg>');
+    }
+    .xp-card h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+    }
+    /* Estilos para el carrito de compra */
+    .cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+    }
+    .cart-container {
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    background-color: var(--light-bg);
+    border: 4px solid #000;
+    border-radius: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    }
+    .cart-header {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid #000;
+    }
+    .cart-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    }
+    .close-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 24px;
+    cursor: pointer;
+    }
+    .cart-items {
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 50vh;
+    flex-grow: 1;
+    }
+    .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    }
+    .cart-item-info {
+    flex-grow: 1;
+    }
+    .cart-item-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    }
+    .cart-item-price {
+    color: var(--dark-primary);
+    font-weight: bold;
+    }
+    .cart-item-quantity {
+    display: flex;
+    align-items: center;
+    }
+    .quantity-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--light-primary);
+    border: 2px solid #000;
+    cursor: pointer;
+    }
+    .quantity-value {
+    width: 40px;
+    height: 30px;
+    background-color: var(--light-bg);
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    border-left: none;
+    border-right: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    }
+    .remove-item {
+    color: #ff4444;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+    }
+    .cart-footer {
+    padding: 20px;
+    border-top: 4px solid #000;
+    background-color: var(--light-bg);
+    }
+    .cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    }
+
+    /* Estilos para el footer */
+    .footer-block {
+    background-image: linear-gradient(to right, var(--dark-primary), var(--dark-secondary));
+    color: var(--text-light);
+    }
+    .social-links {
+    margin-bottom: 15px;
+    }
+    .social-link {
+    display: inline-block;
+    margin-left: 15px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid #000;
+    color: var(--text-light);
+    text-align: center;
+    line-height: 36px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    }
+    .social-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-light);
+    transform: translateY(-3px);
+    }
+    .copyright {
+    font-size: 14px;
+    opacity: 0.8;
+    }
+    /* Animaciones y transiciones */
+    .minecraft-block {
+    transition: all 0.3s ease;
+    }
+    .minecraft-block:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    /* Responsive */
+    @media (max-width: 767px) {
+    .minecraft-title {
+    font-size: 24px;
+    }
+    .hero-block {
+        min-height: 400px;
+        text-align: center;
+    }
+    
+    .minecraft-image-container {
+        height: 200px;
+        margin-top: 30px;
+    }
+    
+    .minecraft-logo {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .navbar-brand.logo {
+        font-size: 18px;
+    }
+    
+    .cart-container {
+        width: 95%;
+    }
+    
+    .product-card, .rank-card, .xp-card {
+        margin-bottom: 30px;
+    }
+    }
+    @media (min-width: 768px) and (max-width: 991px) {
+    .minecraft-title {
+    font-size: 28px;
+    }
+    .minecraft-image-container {
+        height: 250px;
+    }
+    
+    .minecraft-logo {
+        width: 200px;
+        height: 200px;
+    }
+    }
+    /* Clases de utilidad adicionales */
+    .minecraft-effect-shadow {
+    box-shadow: 0 6px 0 #000;
+    }
+    .minecraft-effect-border {
+    border: 4px solid #000;
+    }
+    .minecraft-overlay {
+    position: relative;
+    }
+    .minecraft-overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAFElEQVQYV2NkYGD4z4AFMI4qABcBADaIBg8BGWRlAAAAAElFTkSuQmCC');
+    background-repeat: repeat;
+    opacity: 0.1;
+    pointer-events: none;
+    }
